@@ -1,0 +1,13 @@
+{
+	"id" : "systembridge",
+	"name" : "System Bridge",
+	"description" : "Ce plugin permet de connecter un ou des ordinateurs/serveurs avec System Bridge installé.",
+	"licence" : "AGPL",
+	"author" : "lunarok",
+	"require" : "3.3.24",
+	"category" : "automatisation",
+	"language" : ["fr_FR","en_US"],
+	"compatibility" : ["miniplus","smart","rpi","docker","diy","mobile","v4"],
+	"changelog" : "https://lunarok.github.io/jeedom_docs/plugins/systembridge/changelog.html",
+	"documentation" : "https://lunarok.github.io/jeedom_docs/plugins/systembridge/"
+}
