@@ -114,7 +114,7 @@ $eqLogics = eqLogic::byType('systembridge');
             </div>
 
             <div class="form-group">
-              <label class="col-sm-3 control-label">{{IP de l'équipelent System Bridge}}}</label>
+              <label class="col-sm-3 control-label">{{IP de l'équipelent System Bridge}}</label>
               <div class="col-sm-8">
                 <input type="text"  class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="ip" />
               </div>

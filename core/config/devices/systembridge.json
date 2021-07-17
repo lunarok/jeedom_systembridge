@@ -353,6 +353,16 @@
       "type": "info",
       "subtype": "string",
       "logicalId": "processes:currentLoadIrq"
+    },
+    {
+      "name": "Mute On",
+      "type": "action",
+      "subtype": "other",
+      "configuration" : {
+        "request" : "/audio/mute",
+        "value" : true
+      },
+      "logicalId": "audio:muteOn"
     }
   ]
 }

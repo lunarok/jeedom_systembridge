@@ -20,10 +20,10 @@
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
 class systembridge extends eqLogic {
-	public static function cronDaily() {
+	public static function cron() {
     $eqLogics = eqLogic::byType('systembridge', true);
     foreach ($eqLogics as $eqLogic) {
-      $eqLogic->refreshAll();
+      $eqLogic->refresh();
     }
   }
 
