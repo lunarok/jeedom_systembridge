@@ -176,15 +176,18 @@ class systembridgeCmd extends cmd {
 				$eqLogic = $this->getEqLogic();
 				if ($this->getLogicalId() == 'refresh') {
 					$eqLogic->refresh();
-					continue;
+					return;
 				}
 				$put = array();
 				if ($this->getSubType() == 'slider') {
 					$put['value'] = $_options['slider'];
-					$eqLogic->callOpenData($this->getConfiguration('request'),$put);
-					continue;
+				} else if ($this->getSubType() == 'select') {
+					$put['value'] = $_options['select'];
+				} else if ($this->getSubType() == 'message') {
+					$put['value'] = $_options['title'];
+				} else {
+					$put['value'] = $this->getConfiguration('value');
 				}
-				$put['value'] = $this->getConfiguration('value');
 				$eqLogic->callOpenData($this->getConfiguration('request'),$put);
 			}
 		}
