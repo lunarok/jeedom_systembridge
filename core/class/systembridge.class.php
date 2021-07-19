@@ -73,8 +73,10 @@ class systembridge extends eqLogic {
 	}
 
 	public function callOpenData($_url, $_put = 'none') {
-		$request_http = new com_http('http://' . $this->getConfiguration('ip') . '/' . $_url);
+		$request_http = new com_http('http://' . $this->getConfiguration('ip') . ':9170/' . $_url);
     $request_http->setNoReportError(true);
+		$headers['api-key'] = $this->getConfiguration('key');
+		$request_http->setHeader($headers);
 		if ($_put != 'none') {
 			$request_http->setPut($_put);
 		}
