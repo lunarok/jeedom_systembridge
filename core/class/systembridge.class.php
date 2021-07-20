@@ -73,7 +73,9 @@ class systembridge extends eqLogic {
 	}
 
 	public function callOpenData($_url, $_put = 'none') {
-		$request_http = new com_http('http://' . $this->getConfiguration('ip') . ':9170/' . $_url);
+		$_url = 'http://' . $this->getConfiguration('ip') . ':9170/' . $_url;
+		log::add('systembridge', 'debug', 'Parse ' . $_url);
+		$request_http = new com_http($_url);
     $request_http->setNoReportError(true);
 		$headers['api-key'] = $this->getConfiguration('key');
 		$request_http->setHeader($headers);
@@ -81,6 +83,7 @@ class systembridge extends eqLogic {
 			$request_http->setPut($_put);
 		}
     $return = $request_http->exec(15,2);
+		log::add('systembridge', 'debug', 'Result ' . $return);
 		return json_decode($return, true);
 	}
 
