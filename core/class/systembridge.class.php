@@ -73,8 +73,8 @@ class systembridge extends eqLogic {
 		$this->getProcesses();
 	}
 
-	public function callOpenData($_url, $_put = 'none') {
-		$_url = 'http://' . $this->getConfiguration('ip') . ':9170/' . $_url;
+	public function callOpenData($_url, $_put = 'none', $_method = 'put') {
+		$_url = 'http://' . $this->getConfiguration('ip') . ':9170' . $_url;
 		log::add('systembridge', 'debug', 'Parse ' . $_url);
 		$request_http = new com_http($_url);
     $request_http->setNoReportError(true);
@@ -82,7 +82,11 @@ class systembridge extends eqLogic {
 		$headers[] = 'api-key: ' . $this->getConfiguration('key');
 		$request_http->setHeader($headers);
 		if ($_put != 'none') {
-			$request_http->setPut($_put);
+			if ($_method == 'put') {
+				$request_http->setPut($_put);
+			} else {
+				$request_http->setPost($_put);
+			}
 		}
     $return = $request_http->exec(15,2);
 		log::add('systembridge', 'debug', 'Result ' . $return);
@@ -90,13 +94,13 @@ class systembridge extends eqLogic {
 	}
 
 	public function getAudio() {
-		$data =$this->callOpenData('audio');
+		$data =$this->callOpenData('/audio');
 		$this->checkAndUpdateCmd('audio:muted', $data['current']['muted']);
 		$this->checkAndUpdateCmd('audio:volume', $data['current']['volume']);
 	}
 
 	public function getBattery() {
-		$data =$this->callOpenData('battery');
+		$data =$this->callOpenData('/battery');
 		$this->checkAndUpdateCmd('battery:hasBattery', $data['hasBattery']);
 		$this->checkAndUpdateCmd('battery:isCharging', $data['isCharging']);
 		$this->checkAndUpdateCmd('battery:percent', $data['percent']);
@@ -104,7 +108,7 @@ class systembridge extends eqLogic {
 	}
 
 	public function getCpu() {
-		$data =$this->callOpenData('cpu');
+		$data =$this->callOpenData('/cpu');
 		$this->checkAndUpdateCmd('cpu:speed', $data['cpu']['speed']);
 		$this->checkAndUpdateCmd('cpu:speedMin', $data['cpu']['speedMin']);
 		$this->checkAndUpdateCmd('cpu:speedMax', $data['cpu']['speedMax']);
@@ -112,7 +116,7 @@ class systembridge extends eqLogic {
 	}
 
 	public function getFilesystem() {
-		$data =$this->callOpenData('filesystem');
+		$data =$this->callOpenData('/filesystem');
 		$i=0;
 		foreach ($data['fsSize'] as $key => $value) {
 			$i++;
@@ -129,7 +133,7 @@ class systembridge extends eqLogic {
 	}
 
 	public function getMemory() {
-		$data =$this->callOpenData('memory');
+		$data =$this->callOpenData('/memory');
 		$this->checkAndUpdateCmd('memory:total', $data['total']);
 		$this->checkAndUpdateCmd('memory:free', $data['free']);
 		$this->checkAndUpdateCmd('memory:used', $data['used']);
@@ -140,7 +144,7 @@ class systembridge extends eqLogic {
 	}
 
 	public function getNetwork() {
-		$data =$this->callOpenData('network');
+		$data =$this->callOpenData('/network');
 		$this->checkAndUpdateCmd('network:gatewayDefault', $data['gatewayDefault']);
 		$this->checkAndUpdateCmd('network:interfaceDefault', $data['interfaceDefault']);
 		$i=0;
@@ -159,14 +163,14 @@ class systembridge extends eqLogic {
 	}
 
 	public function getOs() {
-		$data =$this->callOpenData('os');
+		$data =$this->callOpenData('/os');
 		$this->checkAndUpdateCmd('os:distro', $data['distro']);
 		$this->checkAndUpdateCmd('os:hostname', $data['hostname']);
 		$this->checkAndUpdateCmd('os:fqdn', $data['fqdn']);
 	}
 
 	public function getProcesses() {
-		$data =$this->callOpenData('processes');
+		$data =$this->callOpenData('/processes');
 		$this->checkAndUpdateCmd('processes:avgLoad', $data['load']['avgLoad']);
 		$this->checkAndUpdateCmd('processes:currentLoad', $data['load']['currentLoad']);
 		$this->checkAndUpdateCmd('processes:currentLoadUser', $data['load']['currentLoadUser']);
@@ -206,7 +210,12 @@ class systembridgeCmd extends cmd {
 				} else {
 					$put[$this->getConfiguration('argument')] = $this->getConfiguration('value');
 				}
-				$eqLogic->callOpenData($this->getConfiguration('request'),$put);
+				if (strpos('audio',$this->getConfiguration('request')) === false) {
+					$method = 'post';
+				} else {
+					$method = 'put';
+				}
+				$eqLogic->callOpenData($this->getConfiguration('request'),$put,$method);
 			}
 		}
 }
