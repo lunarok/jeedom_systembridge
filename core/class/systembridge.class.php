@@ -77,7 +77,8 @@ class systembridge extends eqLogic {
 		log::add('systembridge', 'debug', 'Parse ' . $_url);
 		$request_http = new com_http($_url);
     $request_http->setNoReportError(true);
-		$headers['api-key'] = $this->getConfiguration('key');
+		$headers = array();
+		$headers[] = 'api-key: ' . $this->getConfiguration('key');
 		$request_http->setHeader($headers);
 		if ($_put != 'none') {
 			$request_http->setPut($_put);
