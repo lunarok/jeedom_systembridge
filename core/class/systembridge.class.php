@@ -187,13 +187,24 @@ class systembridgeCmd extends cmd {
 				}
 				$put = array();
 				if ($this->getSubType() == 'slider') {
-					$put['value'] = $_options['slider'];
+					$put[$this->getConfiguration('argument')] = $_options['slider'];
 				} else if ($this->getSubType() == 'select') {
-					$put['value'] = $_options['select'];
+					$put[$this->getConfiguration('argument')] = $_options['select'];
 				} else if ($this->getSubType() == 'message') {
-					$put['value'] = $_options['title'];
+					$put[$this->getConfiguration('argument')] = $_options['title'];
+					if ($this->getConfiguration('argument') == 'command') {
+						$put['arguments'][] = $_options['message'];
+					} else {
+						if (strpos('icone=',$_options['message']) === false) {
+							$put['message'][] = $_options['message'];
+						} else {
+							$parts = explode(';', str_replace('icone=','',$_options['message']));
+							$put['message'][] = $parts[1];
+							$put['icon'][] = $parts[0];
+						}
+					}
 				} else {
-					$put['value'] = $this->getConfiguration('value');
+					$put[$this->getConfiguration('argument')] = $this->getConfiguration('value');
 				}
 				$eqLogic->callOpenData($this->getConfiguration('request'),$put);
 			}

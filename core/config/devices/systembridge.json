@@ -355,14 +355,125 @@
       "logicalId": "processes:currentLoadIrq"
     },
     {
+      "name": "Refresh",
+      "type": "action",
+      "subtype": "other",
+      "logicalId": "refresh"
+    },
+    {
+      "name": "Mute Off",
+      "type": "action",
+      "subtype": "other",
+      "configuration" : {
+        "request" : "/audio/mute",
+        "argument" : "value",
+        "value" : false
+      },
+      "logicalId": "audio:muteOff"
+    },
+    {
       "name": "Mute On",
       "type": "action",
       "subtype": "other",
       "configuration" : {
         "request" : "/audio/mute",
+        "argument" : "value",
         "value" : true
       },
       "logicalId": "audio:muteOn"
+    },
+    {
+      "name": "Play",
+      "type": "action",
+      "subtype": "other",
+      "configuration" : {
+        "request" : "/audio/play",
+        "argument" : "value",
+        "value" : true
+      },
+      "logicalId": "audio:play"
+    },
+    {
+      "name": "Pause",
+      "type": "action",
+      "subtype": "other",
+      "configuration" : {
+        "request" : "/audio/pause",
+        "argument" : "value",
+        "value" : true
+      },
+      "logicalId": "audio:pause"
+    },
+    {
+      "name": "Stop",
+      "type": "action",
+      "subtype": "other",
+      "configuration" : {
+        "request" : "/audio/stop",
+        "argument" : "value",
+        "value" : true
+      },
+      "logicalId": "audio:stop"
+    },
+    {
+      "name": "Volume",
+      "type": "action",
+      "subtype": "slider",
+      "configuration" : {
+        "request" : "/audio/volume",
+        "argument" : "value",
+        "minValue" : 0,
+        "maxValue" : 100
+      },
+      "logicalId": "audio:volume"
+    },
+    {
+      "name": "Commande",
+      "type": "action",
+      "subtype": "message",
+      "configuration" : {
+        "request" : "/command",
+        "title_placeholder" : "Commande",
+        "message_placeholder" : "Argument",
+        "argument" : "command"
+      },
+      "logicalId": "audio:command"
+    },
+    {
+      "name": "Ouvrir",
+      "type": "action",
+      "subtype": "message",
+      "configuration" : {
+        "request" : "/open",
+        "title_placeholder" : "Fichier à ouvrir",
+        "message_disable" : 1,
+        "argument" : "path"
+      },
+      "logicalId": "audio:open"
+    },
+    {
+      "name": "Envoi touche",
+      "type": "action",
+      "subtype": "message",
+      "configuration" : {
+        "request" : "/keyboard",
+        "title_placeholder" : "Touche à émettre",
+        "message_disable" : 1,
+        "argument" : "key"
+      },
+      "logicalId": "audio:keyboard"
+    },
+    {
+      "name": "Envoi notification",
+      "type": "action",
+      "subtype": "message",
+      "configuration" : {
+        "request" : "/notification",
+        "title_placeholder" : "Titre",
+        "message_placeholder" : "Message et icone",
+        "argument" : "title"
+      },
+      "logicalId": "audio:notification"
     }
   ]
 }
