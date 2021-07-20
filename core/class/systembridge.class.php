@@ -66,6 +66,7 @@ class systembridge extends eqLogic {
 		$this->getAudio();
 		$this->getBattery();
 		$this->getCpu();
+		$this->getFilesystem();
 		$this->getMemory();
 		$this->getNetwork();
 		$this->getOs();
