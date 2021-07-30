@@ -1,6 +1,12 @@
 {
   "commands": [
     {
+      "name": "Online",
+      "type": "info",
+      "subtype": "binary",
+      "logicalId": "online"
+    },
+    {
       "name": "Mute",
       "type": "info",
       "subtype": "binary",
