@@ -63,6 +63,10 @@ class systembridge extends eqLogic {
 	}
 
 	public function refresh() {
+		if ($this->pingHost($this->getConfiguration('ip')) == false) {
+		  log::add('systembridge', 'debug', 'Offline Systembridge : ' . $this->getName());
+			return;
+		}
 		$this->getAudio();
 		$this->getBattery();
 		$this->getCpu();
@@ -178,6 +182,18 @@ class systembridge extends eqLogic {
 		$this->checkAndUpdateCmd('processes:currentLoadNice', $data['load']['currentLoadNice']);
 		$this->checkAndUpdateCmd('processes:currentLoadIdle', $data['load']['currentLoadIdle']);
 		$this->checkAndUpdateCmd('processes:currentLoadIrq', $data['load']['currentLoadIrq']);
+	}
+	
+	public function pingHost($host, $timeout = 1) {
+	  exec(system::getCmdSudo() . "ping -c1 " . $host, $output, $return_var);
+	  if ($return_var == 0) {
+	    $result = true;
+	    $this->checkAndUpdateCmd('online', 1);
+	  } else {
+	    $result = false;
+	    $this->checkAndUpdateCmd('online', 0);
+	  }
+	  return $result;
 	}
 }
 
