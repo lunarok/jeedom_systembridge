@@ -439,9 +439,11 @@
       "subtype": "message",
       "configuration" : {
         "request" : "/command",
-        "title_placeholder" : "Commande",
-        "message_placeholder" : "Argument",
         "argument" : "command"
+      },
+      "display" : {
+        "title_placeholder" : "Commande",
+        "message_placeholder" : "Argument"
       },
       "logicalId": "audio:command"
     },
@@ -451,9 +453,11 @@
       "subtype": "message",
       "configuration" : {
         "request" : "/open",
-        "title_placeholder" : "Fichier à ouvrir",
-        "message_disable" : 1,
         "argument" : "path"
+      },
+      "display" : {
+        "title_placeholder" : "Fichier à ouvrir",
+        "message_disable" : 1
       },
       "logicalId": "audio:open"
     },
@@ -463,9 +467,11 @@
       "subtype": "message",
       "configuration" : {
         "request" : "/keyboard",
-        "title_placeholder" : "Touche à émettre",
-        "message_disable" : 1,
         "argument" : "key"
+      },
+      "display" : {
+        "title_placeholder" : "Touche à émettre",
+        "message_disable" : 1
       },
       "logicalId": "audio:keyboard"
     },
@@ -475,9 +481,11 @@
       "subtype": "message",
       "configuration" : {
         "request" : "/notification",
-        "title_placeholder" : "Titre",
-        "message_placeholder" : "Message et icone",
         "argument" : "title"
+      },
+      "display" : {
+        "title_placeholder" : "Titre",
+        "message_placeholder" : "Message et icone"
       },
       "logicalId": "audio:notification"
     }
